@@ -8,18 +8,19 @@ const PostSchema = mongoose.Schema({
 const Posts = mongoose.model('Posts', PostSchema);
 
 module.exports = {
-	connect: () => {
-		return mongoose.connect('mongodb://localhost:27017/blog');
+	connect: async () => {
+		return await mongoose.connect('mongodb+srv://blog:blog@cluster0.jc46m.mongodb.net/blog');
 	},
 	addPost: async (title, body) => {
-		const post = new Posts({ title, body });
-		await post.save();
+		return await new Posts({ title, body }).save();
 	},
 	findPostById: async (_id) => {
-		const post = await Posts.findOne({ _id });
-		return post;
+		return await Posts.findOne({ _id });
 	},
 	findAllPosts: async () => {
 		return await Posts.find();
 	},
+	removeById: async (_id) => {
+        return await Posts.deleteOne({ _id });
+    },
 };

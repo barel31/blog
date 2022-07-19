@@ -24,7 +24,6 @@ database.connect();
 app.get('/', (req, res) => {
 	database.findAllPosts().then((posts) => {
 		res.render('home', { startingContent: homeStartingContent, posts: posts });
-		// console.log(posts.map((post) => [post.title, post.body]));
 	});
 });
 
@@ -44,8 +43,8 @@ app.post('/compose', (req, res) => {
 	const title = req.body.postTitle;
 	const body = req.body.postBody;
 
-	database.addPost(title, body).then((e) => {
-		console.log(e || `Added new post: ${title}`);
+	database.addPost(title, body).then((result, err) => {
+		console.log(err || `Added new post ${result._id}`);
 		res.redirect('/');
 	});
 });
@@ -54,12 +53,19 @@ app.get('/posts/:postId', (req, res) => {
 	const postId = req.params.postId;
 
 	database.findPostById(postId).then((post) => {
-		if (post === -1) {
-			res.redirect('/');
-		} else {
+		if (post) {
 			res.render('post', { post });
+		} else {
+			res.redirect('/');
 		}
 	});
+});
+
+app.post('/posts/:postId', (req, res) => {
+	const postId = req.params.postId;
+
+	database.removeById(postId).then((result, err) => console.log(err || `Removed post ${postId}`));
+	res.redirect('/');
 });
 
 app.listen(3000, () => {
