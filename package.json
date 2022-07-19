@@ -1,13 +1,10 @@
 {
-	"name": "ejs-challenge",
+	"name": "blog",
 	"version": "1.0.0",
 	"description": "",
 	"main": "app.js",
-	"homepage": "http://barel31.github.io/blog",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d buid"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
 	"license": "ISC",
@@ -15,7 +12,6 @@
 		"body-parser": "^1.18.3",
 		"ejs": "^2.6.1",
 		"express": "^4.16.3",
-		"gh-pages": "^4.0.0",
 		"lodash": "^4.17.11",
 		"mongoose": "^6.4.4"
 	}
